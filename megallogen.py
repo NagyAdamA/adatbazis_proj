@@ -1,14 +1,8 @@
 import random
+from unicodedata import name
 
 types = ['HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos']
-operators = ['MÁV-HÉV', 'BKK']
-gyártmány_options = {
-    'HÉV': ['Siemens', 'Bombardier', 'Alstom'],
-    'Busz': ['MAN', 'Mercedes', 'Solaris', 'Ikarus'],
-    'Trolibusz': ['Solaris', 'Ikarus'],
-    'Metró': ['Ganz', 'Alstom', 'Metrovagonmas'],
-    'Villamos': ['Siemens', 'Caf']
-}
+names = []
 
 unique_combinations = set()
 
@@ -18,14 +12,9 @@ max_attempts = 1000
 
 while len(sql_statements) < 150:
     típus = random.choice(types)
-    if típus == 'HÉV':
-        üzemeltető = 'MÁV-HÉV'
-    else:
-        üzemeltető = 'BKK'
-    gyártmány = random.choice(gyártmány_options.get(típus))
-    gyártási_év = random.randint(1920, 2020)
+    név = random.choice(names)
 
-    combination = (gyártási_év, típus, üzemeltető, gyártmány)
+    combination = (név, típus)
     
     if combination not in unique_combinations:
         akadálymentes = random.choice([True, False])
