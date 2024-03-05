@@ -29,7 +29,7 @@ while len(sql_statements) < 150:
     
     if combination not in unique_combinations:
         akadálymentes = random.choice([True, False])
-        sql_statement = f"INSERT INTO Jármű (gyártási_év, típus, gyártmány, üzemeltető, akadálymentes) VALUES ('{gyártási_év}', '{típus}', '{gyártmány}', '{üzemeltető}', {akadálymentes});"
+        sql_statement = f"INSERT INTO Jármű (gyártási_év, típus, gyártmány, üzemeltető, akadalymentesitett) VALUES ('{gyártási_év}', '{típus}', '{gyártmány}', '{üzemeltető}', {akadálymentes});"
         sql_statements.append(sql_statement)
         unique_combinations.add(combination)
         attempt = 0
