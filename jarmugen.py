@@ -1,6 +1,5 @@
 import random
 
-# Define lists of possible values
 types = ['HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos']
 operators = ['MÁV-HÉV', 'BKK']
 gyártmány_options = {
@@ -11,16 +10,13 @@ gyártmány_options = {
     'Villamos': ['Siemens', 'Caf']
 }
 
-# Generate unique combinations
 unique_combinations = set()
 
-# Generate SQL insert statements
 sql_statements = []
 attempt = 0
-max_attempts = 1000  # Maximum attempts to generate unique combinations
+max_attempts = 1000
 
 while len(sql_statements) < 150:
-    # Ensure constraints
     típus = random.choice(types)
     if típus == 'HÉV':
         üzemeltető = 'MÁV-HÉV'
@@ -29,10 +25,8 @@ while len(sql_statements) < 150:
     gyártmány = random.choice(gyártmány_options.get(típus))
     gyártási_év = random.randint(1920, 2020)
 
-    # Create combination tuple
     combination = (gyártási_év, típus, üzemeltető, gyártmány)
     
-    # Check if combination is unique
     if combination not in unique_combinations:
         akadálymentes = random.choice([True, False])
         sql_statement = f"INSERT INTO Jármű (gyártási_év, típus, gyártmány, üzemeltető, akadálymentes) VALUES ('{gyártási_év}', '{típus}', '{gyártmány}', '{üzemeltető}', {akadálymentes});"
@@ -42,12 +36,8 @@ while len(sql_statements) < 150:
     else:
         attempt += 1
         if attempt >= max_attempts:
-            break  # Exit loop if too many attempts have been made
+            break
 
-# Write SQL insert statements to a file
-with open("generated_data.sql", "w") as file:
-    file.write("-- Generated 150 lines of random data\n")
-    file.write("BEGIN;\n")
+with open("generalt_jarmu.sql", "w") as file:
     for statement in sql_statements:
         file.write(statement + "\n")
-    file.write("END;\n")
