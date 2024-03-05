@@ -38,6 +38,6 @@ while len(sql_statements) < 150:
         if attempt >= max_attempts:
             break
 
-with open("generaltjarmu", "w") as file:
+with open("generalt_jarmu.sql", "w") as file:
     for statement in sql_statements:
         file.write(statement + "\n")

@@ -1,8 +1,7 @@
 import random
 from unicodedata import name
 
-names = ["Vörösmarty tér", "Deák Ferenc tér", "Bajcsy-Zsilinszky út", "Opera", "Oktogon", "Vörösmarty utca", "Kodály körönd", "Bajza utca", "Hősök tere", "Széchenyi fürdő", "Mexikói út", "Déli pályaudvar", "Széll Kálmán tér", "Batthyány tér", "Astoria", "Blaha Lujza tér", "Keleti pályaudvar", "Puskás Ferenc stadion", "Pillangó utca", "Örs vezér tere", "Kőbánya-Kispest", "Határ út", "Pöttyös utca", "Ecseri út", "Népliget", "Nagyvárad tér", "Semmelweis Klinikák", "Corvin-negyed", "Kálvin tér", "Ferenciek tere", "Arany János utca", "Nyugati pályaudvar", "Lehel tér", "Dózsa György út", "Göncz Árpád városközpont", "Forgách utca", "Gyöngyösi utca", "Újpest-Városkapu", "Újpest-Központ", "Kelenföld vasútállomás", "Bikás park", "Újbuda-központ", "Móricz Zsigmond körtér", "Szent Gellért tér - Műegyetem", "Fővám tér", "Rákóczi tér", "II. János Pál pápa tér"]
-
+names = ["Vörösmarty tér", "Deák Ferenc tér", "Bajcsy-Zsilinszky út", "Opera", "Oktogon", "Vörösmarty utca", "Kodály körönd", "Bajza utca", "Hősök tere", "Széchenyi fürdő", "Mexikói út", "Déli pályaudvar", "Széll Kálmán tér", "Batthyány tér", "Astoria", "Blaha Lujza tér", "Keleti pályaudvar", "Puskás Ferenc stadion", "Pillangó utca", "Örs vezér tere", "Kőbánya-Kispest", "Határ út", "Pöttyös utca", "Ecseri út", "Népliget", "Nagyvárad tér", "Semmelweis Klinikák", "Corvin-negyed", "Kálvin tér", "Ferenciek tere", "Arany János utca", "Nyugati pályaudvar", "Lehel tér", "Dózsa György út", "Göncz Árpád városközpont", "Forgách utca", "Gyöngyösi utca", "Újpest-Városkapu", "Újpest-Központ", "Kelenföld vasútállomás", "Bikás park", "Újbuda-központ", "Móricz Zsigmond körtér", "Szent Gellért tér - Műegyetem", "Fővám tér", "Rákóczi tér", "II. János Pál pápa tér", "Batthyány tér", "Margit híd, budai hídfő", "Szépvölgyi út", "Tímár utca", "Szentlélek tér","Filatorigát","Kaszásdűlő","Aquincum","Rómaifürdő","Csillaghegy", "Békásmegyer", "Budakalász", "Budakalász, Lenfonó", "Szentistvántelep", "Pomáz", "Pannóniatelep", "Szentendre", "Boráros tér", "Müpa – Nemzeti Színház ", "Szabadkikötő", "Szent Imre tér", "Karácsony Sándor utca", "Csepel", "Cinkota", "Cinkota alsó", "Árpádföld", "Szabadságtelep", "Csömör", "Örs vezér tere", "Rákosfalva", "Nagyicce", "Sashalom", "Mátyásföld, repülőtér", "Mátyásföld, Imre utca", "Mátyásföld alsó", "Ilonatelep", "Kistarcsa, kórház", "Kistarcsa", "Zsófialiget", "Kerepes", "Szilasliget", "Mogyoród", "Szentjakab", "Gödöllő, Erzsébet park", "Gödöllő, Szabadság tér", "Gödöllő, Palotakert", "Gödöllő", "Közvágóhíd", "Kén utca", "Pesterzsébet felső"]
 unique_combinations = set()
 
 sql_statements = []
@@ -16,7 +15,7 @@ while len(sql_statements) < 150:
     
     if combination not in unique_combinations:
         akadálymentes = random.choice([True, False])
-        sql_statement = f"INSERT INTO Jármű (név, akadálymentes) VALUES ('{név}', {akadálymentes});"
+        sql_statement = f"INSERT INTO Megálló (név, akadálymentes) VALUES ('{név}', {akadálymentes});"
         sql_statements.append(sql_statement)
         unique_combinations.add(combination)
         attempt = 0
