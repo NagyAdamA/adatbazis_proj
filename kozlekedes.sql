@@ -1,4 +1,6 @@
-CREATE DATABASE Közlekedes;
+CREATE DATABASE Közlekedés;
+
+USE Közlekedés;
 
 CREATE TABLE Jármű (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -15,7 +17,7 @@ CREATE TABLE Megálló(
     akadalymentesitett BOOLEAN
 );
 
-CREATE TABLE Közlekedes(
+CREATE TABLE Menetrend(
     járatszam VARCHAR(4),
     dátum DATE,
     indul TIME,
