@@ -1,6 +1,9 @@
 import random
 from datetime import datetime, timedelta
 
+# types = ['HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos']
+
+
 # Function to generate random date
 def random_date(start_date, end_date):
     delta = end_date - start_date
@@ -23,7 +26,8 @@ def random_indul(érkezik):
 # Open a file for writing SQL insert statements
 with open('generalt_menetrend.sql', 'w') as f:
     # Populate Menetrend table with random data
-    for i in range(100):  # Adjust the number of rows as needed
+    for i in range(100):
+        járatszam = random.randint(1,999)  # Adjust the number of rows as needed
         járműId = random.randint(1, 150)  # Assuming járműId range from 1 to 10
         megállóId = random.randint(1, 150)  # Assuming megállóId range from 1 to 20
         dátum = random_date(datetime(2024, 1, 1), datetime(2024, 12, 31))
@@ -31,5 +35,5 @@ with open('generalt_menetrend.sql', 'w') as f:
         indul = random_indul(érkezik)
 
         # Write insert statement to file
-        f.write("INSERT INTO Menetrend (járműId, megállóId, dátum, indul, érkezik) VALUES ({}, {}, '{}', '{}', '{}');\n".format(
+        f.write("INSERT INTO Menetrend (járatszam, jármű_id, megálló_id, dátum, indul, érkezik) VALUES ('{}', {}, {}, '{}', '{}', '{}');\n".format(járatszam,
             járműId, megállóId, dátum.strftime('%Y-%m-%d'), indul, érkezik))
