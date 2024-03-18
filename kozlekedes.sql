@@ -5,7 +5,7 @@ USE Közlekedés;
 CREATE TABLE Jármű (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     típus VARCHAR(10) CHECK(típus IN ('HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos')),
-    gyártási_év DATE,
+    gyártási_év YEAR,
     gyártmány VARCHAR(20),
     üzemeltető VARCHAR(7) CHECK(üzemeltető IN ('BKK', 'MÁV-HÉV')),
     akadalymentesitett BOOLEAN

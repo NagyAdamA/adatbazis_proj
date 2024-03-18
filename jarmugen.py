@@ -29,7 +29,7 @@ while len(sql_statements) < 150:
     else:
         üzemeltető = 'BKK'
     gyártmány = random.choice(gyártmány_options.get(típus))
-    gyártási_év = random_date(datetime(2024, 1, 1), datetime(2024, 12, 31))
+    gyártási_év = random.randint(1920, 2017)
 
     combination = (gyártási_év, típus, üzemeltető, gyártmány)
     

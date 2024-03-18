@@ -33,7 +33,8 @@ with open('generalt_menetrend.sql', 'w') as f:
         dátum = random_date(datetime(2024, 1, 1), datetime(2024, 12, 31))
         érkezik = random_time()
         indul = random_indul(érkezik)
+        #menetidő = 
 
         # Write insert statement to file
-        f.write("INSERT INTO Menetrend (járatszam, jármű_id, megálló_id, dátum, indul, érkezik) VALUES ('{}', {}, {}, '{}', '{}', '{}');\n".format(járatszam,
-            járműId, megállóId, dátum.strftime('%Y-%m-%d'), indul, érkezik))
+        f.write("INSERT INTO Menetrend (járatszam, jármű_id, megálló_id, dátum, indul, érkezik, menetidő) VALUES ('{}', {}, {}, '{}', '{}', '{}', {});\n".format(járatszam,
+            járműId, megállóId, dátum.strftime('%Y-%m-%d'), indul, érkezik, random.randint(0,150)))
