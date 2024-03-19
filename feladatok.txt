@@ -1,1 +1,31 @@
-Adja meg a 15:00 és 16:00 között induló járatokat.
+Adja meg a 15:00 és 16:00 között érkező és induló járatok számát. - közepes
+
+SELECT járatszam
+FROM menetrend
+WHERE érkezik >= "15:00" AND indul <= "16:00";
+
+A 220-as járatszámú busz kigyuladt ezért törölje az összes járatát - könnyű
+
+DELETE 
+FROM menetrend
+WHERE járatszam = 220;
+
+Add meg az első járatot ami indul (dátum ás idő is számít) - közepes
+
+SELECT *
+FROM menetrend
+ORDER BY dátum, érkezik
+LIMIT 1;
+
+Add meg az "Alstom" által gyártott Metró típusú járműveket
+
+SELECT *
+FROM jármű
+WHERE gyártmány = "Alstom" AND típus = "Metró";
+
+Add meg az 1980 előtt gyártott járműveket és rendezd csökkenő sorrendbe a gyártás éve szerint
+
+SELECT *
+FROM jármű
+WHERE gyártási_év < "1980"
+ORDER BY gyártási_év DESC;
