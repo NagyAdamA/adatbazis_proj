@@ -1,8 +1,4 @@
-Adja meg a 15:00 és 16:00 között érkező és induló járatok számát. - közepes
 
-SELECT járatszam
-FROM menetrend
-WHERE érkezik >= "15:00" AND indul <= "16:00";
 
 A 220-as járatszámú busz kigyuladt ezért törölje az összes járatát - könnyű
 
@@ -17,20 +13,29 @@ FROM menetrend
 ORDER BY dátum, érkezik
 LIMIT 1;
 
-Add meg az "Alstom" által gyártott Metró típusú járműveket
+Add meg az "Alstom" által gyártott Metró típusú járműveket - könnyű
 
 SELECT *
 FROM jármű
 WHERE gyártmány = "Alstom" AND típus = "Metró";
 
-Add meg az 1980 előtt gyártott járműveket és rendezd csökkenő sorrendbe a gyártás éve szerint
+
+Add meg az 1980 előtt gyártott járműveket és rendezd csökkenő sorrendbe a gyártás éve szerint - könnyű
 
 SELECT *
 FROM jármű
 WHERE gyártási_év < "1980"
 ORDER BY gyártási_év DESC;
 
-Adja meg a 45-ös azonosítójú jármű üzemeltetőjét, gyártóját és járatait idő rendi sorrendbe!
+Adja meg a 15:00 és 16:00 között érkező és induló járatok számát. - közepes
+
+SELECT járatszam
+FROM menetrend
+WHERE érkezik >= "15:00" AND indul <= "16:00";
+
+
+
+Adja meg a 45-ös azonosítójú jármű üzemeltetőjét, gyártóját és járatait idő rendi sorrendbe! - nehéz
 
 SELECT id, üzemeltető, gyártmány, dátum, járatszam, érkezik, indul, menetidő, akadalymentesitett, megálló_id
 FROM jármű j INNER JOIN menetrend m ON j.id = m.jármű_id
