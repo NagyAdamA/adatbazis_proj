@@ -10,7 +10,7 @@ DELETE
 FROM menetrend
 WHERE járatszam = 220;
 
-Add meg az első járatot ami indul (dátum ás idő is számít) - közepes
+Add meg az első járatot ami indul (dátum ás idő is számít) - könnyű
 
 SELECT *
 FROM menetrend
@@ -29,3 +29,13 @@ SELECT *
 FROM jármű
 WHERE gyártási_év < "1980"
 ORDER BY gyártási_év DESC;
+
+Adja meg a 45-ös azonosítójú jármű üzemeltetőjét, gyártóját és járatait idő rendi sorrendbe!
+
+SELECT id, üzemeltető, gyártmány, dátum, járatszam, érkezik, indul, menetidő, akadalymentesitett, megálló_id
+FROM jármű j INNER JOIN menetrend m ON j.id = m.jármű_id
+WHERE id = 45
+ORDER BY dátum, érkezik;
+
+
+ALTER TABLE meneterend
