@@ -37,5 +37,10 @@ FROM jármű j INNER JOIN menetrend m ON j.id = m.jármű_id
 WHERE id = 45
 ORDER BY dátum, érkezik;
 
+A 724-es számú járat technikai okok miatt 15 percet késik. Változtasd meg az érkezési és indulási időt.
+UPDATE menetrend
+SET érkezik = érkezik + INTERVAL 15 MINUTE, indul = indul + INTERVAL 15 MINUTE
+WHERE járatszam = 724;
+
 
 ALTER TABLE meneterend
