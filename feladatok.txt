@@ -1,0 +1,143 @@
+
+-- Könnyű
+
+A 220-as járatszámú busz kigyuladt ezért törölje az összes járatát - könnyű
+
+DELETE 
+FROM menetrend
+WHERE járatszam = 220;
+
+-------------------------------------------------------------------------------
+
+Adja meg az első járatot ami indul (dátum ás idő is számít) - könnyű
+
+SELECT *
+FROM menetrend
+ORDER BY dátum, érkezik
+LIMIT 1;
+
+-------------------------------------------------------------------------------
+
+Adja meg az "Alstom" által gyártott Metró típusú járműveket - könnyű
+
+SELECT *
+FROM jármű
+WHERE gyártmány = "Alstom" AND típus = "Metró";
+
+-------------------------------------------------------------------------------
+
+Adja meg a 15:00 és 16:00 között érkező és induló járatok számát. - 
+
+SELECT járatszam
+FROM menetrend
+WHERE érkezik >= "15:00" AND indul <= "16:00";
+
+-------------------------------------------------------------------------------
+
+Add meg azokat a megállókat amiben szerepel "a" betű - könnyű
+
+SELECT név
+from megálló
+where név like "%a%"
+
+
+
+-- Közepes
+
+
+
+Add meg az 1980 előtt gyártott járműveket és rendezd csökkenő sorrendbe a gyártás éve szerint - közepes
+
+SELECT *
+FROM jármű
+WHERE gyártási_év < "1980"
+ORDER BY gyártási_év DESC;
+
+-------------------------------------------------------------------------------
+
+Add meg azokat a járatok indulási dátumának a nap részét magyarul, aminek a menetideje több mint 1 óra - közepes
+
+SELECT
+    DATE_FORMAT(dátum, '%W', 'hu_HU') AS indulás_napja,
+    menetidő
+FROM menetrend
+WHERE menetidő > 60;
+
+-------------------------------------------------------------------------------
+
+Sztrájkolni fognak a BKK-sok 2024. December 7-én, ezért aznap nem járnak a BKK által üzemeltetett járatok. Listázd ki hogy melyik járatok nem fognak közlekedni és mikor. - közepes
+
+Select m.járatszam, m.indul
+from menetrend m inner join jármű j on m.jármű_id = j.id 
+where m.dátum = "2024-12-07" && j.üzemeltető = "BKK"
+
+-------------------------------------------------------------------------------
+
+Add meg az 1980 előtt gyártott járműveket és rendezd csökkenő sorrendbe a gyártás éve szerint. - közepes
+
+select *
+from jármű
+where gyártási_év < 1980
+order by gyártási_év ASC
+
+-------------------------------------------------------------------------------
+
+A 724-es számú járat technikai okok miatt 15 percet késik. Változtasd meg az érkezési és indulási időt. - közepes
+
+UPDATE menetrend
+SET érkezik = érkezik + INTERVAL 15 MINUTE, indul = indul + INTERVAL 15 MINUTE
+WHERE járatszam = 724;
+
+-------------------------------------------------------------------------------
+
+
+-- Nehéz
+
+
+Felújítás van éjflétől 5 óráig minden villamos járatnál 2024. Június 1-től 2024 Augusztus 31-ig, minden menetidő megnövekszik 1 órával - nehéz
+
+update
+menetrend m inner join jármű j on m.jármű_id = j.id
+set m.menetidő = m.menetidő + 60
+where hour(m.indul) > 0 && hour(m.indul) < 5 && m.dátum between "2024-05-01" and "2024-08-31" && j.típus = "Villamos"
+
+-------------------------------------------------------------------------------
+
+Adja meg az egyes járattípusok átlagos menetidejét. - nehéz
+
+SELECT
+    jármű.típus,
+    AVG(menetrend.menetidő) AS átlagos_menetidő
+FROM jármű
+INNER JOIN menetrend ON jármű.id = menetrend.jármű_id
+GROUP BY jármű.típus
+ORDER BY átlagos_menetidő ASC;
+
+-------------------------------------------------------------------------------
+
+Add meg a leggyakoribb megálló nevét, ahol a járművek megállnak. -nehéz
+
+SELECT
+    név
+FROM megálló
+JOIN menetrend m ON m.megálló_id = megálló.id
+GROUP BY név
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+
+-------------------------------------------------------------------------------
+
+Adja meg a 45-ös azonosítójú jármű üzemeltetőjét, gyártóját és járatait idő rendi sorrendbe! - nehéz
+
+SELECT id, üzemeltető, gyártmány, dátum, járatszam, érkezik, indul, menetidő, akadalymentesitett, megálló_id
+FROM jármű j INNER JOIN menetrend m ON j.id = m.jármű_id
+WHERE id = 45
+ORDER BY dátum, érkezik;
+
+-------------------------------------------------------------------------------
+
+A BKK az 1921-ben gyártott buszok és trolibuszok helyett újakat vesz. A gyártmánya Mercedes-Benz. - Nehéz
+
+update jármű
+set gyártási_év = 2024, gyártmány = "Mercedes-Benz"
+where (típus = "Trolibusz" || típus = "Busz") && gyártási_év = 1921 && üzemeltető = "BKV"
