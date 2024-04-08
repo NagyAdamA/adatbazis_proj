@@ -1,7 +1,9 @@
 import random
+from datetime import datetime, timedelta
 
-jarmuvek = ['HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos']
-tipusok = {
+types = ['HÉV', 'Busz', 'Trolibusz', 'Metró', 'Villamos']
+operators = ['MÁV-HÉV', 'BKK']
+gyártmány_options = {
     'HÉV': ['Siemens', 'Bombardier', 'Alstom'],
     'Busz': ['MAN', 'Mercedes', 'Solaris', 'Ikarus'],
     'Trolibusz': ['Solaris', 'Ikarus'],
@@ -9,28 +11,39 @@ tipusok = {
     'Villamos': ['Siemens', 'Caf']
 }
 
-unique_sors = set()
+unique_combinations = set()
 
 sql_statements = []
+attempt = 0
+max_attempts = 1000
+
+def random_date(start_date, end_date):
+    delta = end_date - start_date
+    random_days = random.randint(0, delta.days)
+    return start_date + timedelta(days=random_days)
 
 while len(sql_statements) < 150:
-    jarmu_tipus = random.choice(jarmuvek)
-    if jarmu_tipus == 'HÉV':
-        uzemelteto = 'MÁV-HÉV'
+    típus = random.choice(types)
+    if típus == 'HÉV':
+        üzemeltető = 'MÁV-HÉV'
     else:
-        uzemelteto = 'BKK'
-    gyarto = random.choice(tipusok.get(jarmu_tipus))
-    gyartasi_ev = random.randint(1920, 2017)
+        üzemeltető = 'BKK'
+    gyártmány = random.choice(gyártmány_options.get(típus))
+    gyártási_év = random.randint(1920, 2017)
 
-    sor = (gyartasi_ev, jarmu_tipus, uzemelteto, gyarto)
+    combination = (gyártási_év, típus, üzemeltető, gyártmány)
     
-    if sor not in unique_sors:
+    if combination not in unique_combinations:
         akadálymentes = random.choice([True, False])
-        sql_statement = f"INSERT INTO Jármű (gyartasi_ev, jarmu_tipus, gyarto, uzemelteto, akadalymentesitett) VALUES ('{gyartasi_ev}', '{jarmu_tipus}', '{gyarto}', '{uzemelteto}', {akadálymentes});"
+        sql_statement = f"INSERT INTO Jármű (gyártási_év, típus, gyártmány, üzemeltető, akadalymentesitett) VALUES ('{gyártási_év}', '{típus}', '{gyártmány}', '{üzemeltető}', {akadálymentes});"
         sql_statements.append(sql_statement)
-        unique_sors.add(sor)
+        unique_combinations.add(combination)
+        attempt = 0
+    else:
+        attempt += 1
+        if attempt >= max_attempts:
+            break
 
-# Fajlbairas
 with open("generalt_jarmu.sql", "w") as file:
     for statement in sql_statements:
         file.write(statement + "\n")
