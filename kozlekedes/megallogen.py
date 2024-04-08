@@ -5,8 +5,6 @@ names = ["Vörösmarty tér", "Deák Ferenc tér", "Bajcsy-Zsilinszky út", "Ope
 unique_combinations = set()
 
 sql_statements = []
-attempt = 0
-max_attempts = 1000
 
 while len(sql_statements) < 150:
     név = random.choice(names)
@@ -18,11 +16,6 @@ while len(sql_statements) < 150:
         sql_statement = f"INSERT INTO Megálló (név, akadalymentesitett) VALUES ('{név}', {akadálymentes});"
         sql_statements.append(sql_statement)
         unique_combinations.add(combination)
-        attempt = 0
-    else:
-        attempt += 1
-        if attempt >= max_attempts:
-            break
 
 with open("generalt_megallo.sql", "w") as file:
     for statement in sql_statements:
